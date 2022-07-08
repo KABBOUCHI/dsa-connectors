@@ -132,7 +132,6 @@ const lint = async () => {
 
 
     if (Object.keys(errors).length > 0) {
-        console.log(markdownTable)
         console.log(markdownTable(
             [
                 ['File', 'Error'],
