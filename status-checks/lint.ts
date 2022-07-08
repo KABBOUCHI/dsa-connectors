@@ -139,7 +139,7 @@ const lint = async () => {
                 ...Object.keys(errors).map(filePath => ([filePath, errors[filePath].join(', ')]))
             ]
         ))
-        process.exit(1);
+        process.exit(0);
     }
 }
 
