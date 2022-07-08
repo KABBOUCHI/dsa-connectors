@@ -42,7 +42,7 @@ jobs:
           script: |
             let fs = require('fs');
             let prNumber = Number(fs.readFileSync("./number"));
-            let statusCheck = fs.readFileSync("./status-check-output");
+            let statusCheck = fs.readFileSync("./status-check-output", { encoding: "utf8" });
             await github.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
