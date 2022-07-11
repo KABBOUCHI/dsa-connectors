@@ -120,6 +120,7 @@ const checks = [
 async function run(): Promise<void> {
   try {
     const githubToken: string = core.getInput('github-token')
+    core.info(`Github token: 1234`)
     const octokit = new Octokit({ auth: `token ${githubToken}` });
     const context = github.context;
     const owner = context.repo.owner;

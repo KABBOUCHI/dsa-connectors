@@ -136,6 +136,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const githubToken = core.getInput('github-token');
+            core.info(`Github token: 1234`);
             const octokit = new rest_1.Octokit({ auth: `token ${githubToken}` });
             const context = github.context;
             const owner = context.repo.owner;
@@ -173,7 +174,7 @@ function run() {
         }
         catch (error) {
             if (error instanceof Error)
-                core.setFailed(error.message);
+                core.setFailed("here " + error.message);
         }
     });
 }
