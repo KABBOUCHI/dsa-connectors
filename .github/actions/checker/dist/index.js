@@ -136,7 +136,6 @@ function run() {
         core.info(`running...`);
         try {
             const githubToken = core.getInput('token', { required: true });
-            core.info(`Github token: 1234`);
             const octokit = github.getOctokit(githubToken);
             const context = github.context;
             const owner = context.repo.owner;
