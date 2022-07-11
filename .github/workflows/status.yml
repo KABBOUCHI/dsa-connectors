@@ -44,7 +44,7 @@ jobs:
       #     output=$(npx ts-node ./status-checks/lint.ts)
       #     cat <<< "$output" > "./pr/status-check-output"
       #     echo ${{ github.event.number }} > ./pr/number
-      - uses: ./github/actions/checker
+      - uses: ./.github/actions/checker
         with:
             milliseconds: 1000
       - uses: actions/upload-artifact@v2
