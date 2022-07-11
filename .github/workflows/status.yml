@@ -15,40 +15,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Use Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-${{ matrix.node_version }}-${{ hashFiles('**/package-lock.json') }}
-      - name: Install and build
-        run: |
-          npm install
-      # - name: Run status checks
-      #   id: status_check
-      #   run: |
-      #     mkdir -p pr
-      #     # Run status checks, Remove ANSI colors from the text
-      #     output=$(npx ts-node ./status-checks/index.ts | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g')
-      #     cat <<< "$output" > "./pr/status-check-output"
-      #     echo ${{ github.event.number }} > ./pr/number
-      # - name: Run lint checks
-      #   id: lint_check
-      #   run: |
-      #     mkdir -p pr
-      #     output=$(npx ts-node ./status-checks/lint.ts)
-      #     cat <<< "$output" > "./pr/status-check-output"
-      #     echo ${{ github.event.number }} > ./pr/number
       - uses: ./.github/actions/checker
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v2
-        with:
-          name: pr
-          path: pr/
-          retention-days: 1
