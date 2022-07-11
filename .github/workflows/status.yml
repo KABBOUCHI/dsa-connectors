@@ -46,7 +46,7 @@ jobs:
       #     echo ${{ github.event.number }} > ./pr/number
       - uses: ./.github/actions/checker
         with:
-            milliseconds: 1000
+            github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v2
         with:
           name: pr
