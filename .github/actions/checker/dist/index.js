@@ -161,10 +161,23 @@ function run() {
                     ['File', 'Error'],
                     ...Object.keys(errors).map(filePath => ([filePath, errors[filePath].join(', ')]))
                 ]);
+                let number;
+                if (context.eventName.includes('issue')) {
+                    number = context.payload.issue.number;
+                }
+                else if (context.eventName.includes('pull_request')) {
+                    number = context.payload.pull_request.number;
+                }
+                else {
+                    core.info(`Now eventName: ${context.eventName}. And input number is empty. This Action only support issue and pull_request related!`);
+                    core.setFailed("Lint failed");
+                    return;
+                }
+                core.info(JSON.stringify(context.payload));
                 yield octokit.reactions.createForIssueComment({
                     owner,
                     repo,
-                    comment_id: context.payload.pull_request.number,
+                    comment_id: number,
                     content: message,
                 });
                 core.setFailed("Lint failed");
