@@ -135,7 +135,7 @@ const checks = [
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const githubToken = core.getInput('github-token');
+            const githubToken = core.getInput('token');
             core.info(`Github token: 1234`);
             const octokit = new rest_1.Octokit({ auth: `token ${githubToken}` });
             const context = github.context;
