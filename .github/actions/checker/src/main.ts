@@ -118,8 +118,9 @@ const checks = [
 ]
 
 async function run(): Promise<void> {
+  core.info(`running...`)
   try {
-    const githubToken: string = core.getInput('token')
+    const githubToken: string = core.getInput('token', { required: true });
     core.info(`Github token: 1234`)
     const octokit = new Octokit({ auth: `token ${githubToken}` });
     const context = github.context;
