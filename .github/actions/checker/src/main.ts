@@ -1,6 +1,5 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import { Octokit } from '@octokit/rest';
 import { readFileSync } from "fs";
 import glob from "glob"
 //@ts-ignore
@@ -122,7 +121,7 @@ async function run(): Promise<void> {
   try {
     const githubToken: string = core.getInput('token', { required: true });
     core.info(`Github token: 1234`)
-    const octokit = new Octokit({ auth: `token ${githubToken}` });
+    const octokit = github.getOctokit(githubToken);
     const context = github.context;
     const owner = context.repo.owner;
     const repo = context.repo.repo;
@@ -164,13 +163,11 @@ async function run(): Promise<void> {
         core.setFailed("Lint failed")
         return
       }
-
-      core.info(JSON.stringify(context.payload));
-      await octokit.reactions.createForIssueComment({
+      await octokit.rest.issues.createComment({
         owner,
         repo,
-        comment_id: number,
-        content: message,
+        issue_number: number,
+        body: message,
       });
       core.setFailed("Lint failed")
     } else {
